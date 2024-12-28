@@ -4,3 +4,13 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+
+module(
+    name = "bazel_bindings",
+    version = "0.1.0",
+)
+
+bazel_dep(name = "rules_rust", version = "0.48.0")
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(edition = "2021")

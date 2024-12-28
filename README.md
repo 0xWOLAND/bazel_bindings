@@ -6,7 +6,8 @@ This project demonstrates how to create C++ libraries that can be called from Ru
 
 ```
 .
-├── WORKSPACE           # Bazel workspace configuration
+├── MODULE.bazel       # Bazel module configuration (Bzlmod)
+├── WORKSPACE          # Bazel workspace configuration
 ├── src/
 │   ├── math/          # C++ implementation
 │   │   ├── BUILD      # Bazel build file for C++ library
@@ -28,7 +29,7 @@ The math library provides the following operations:
 
 ## Prerequisites
 
-- Bazel (latest version)
+- Bazel (latest version with Bzlmod support)
 - Rust toolchain
 - C++ compiler
 
@@ -64,8 +65,18 @@ fn main() {
 
 ## Adding to Your Project
 
-To use this library in your Bazel project, add the following to your `BUILD` file:
+To use this library in your Bazel project:
 
+1. Add the dependency to your `MODULE.bazel`:
 ```python
-deps = ["//src/rust:math_bindings"]
+bazel_dep(name = "bazel_bindings", version = "0.1.0")
 ```
+
+2. Add the dependency to your `BUILD` file:
+```python
+deps = ["@bazel_bindings//src/rust:math_bindings"]
+```
+
+## License
+
+[Insert your chosen license here]
