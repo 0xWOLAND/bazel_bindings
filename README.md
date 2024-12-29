@@ -1,11 +1,12 @@
-# Bazel C++ and Rust Bindings Example
+# Bazel Math - C++ Math Operations for Rust
 
-This project demonstrates how to create C++ libraries that can be called from Rust using Bazel as the build system. It includes a simple math library implemented in C++ and exposed to Rust through FFI bindings.
+A Rust crate that provides mathematical operations implemented in C++ and exposed through Rust bindings using Bazel as the build system.
 
 ## Project Structure
 
 ```
 .
+├── Cargo.toml         # Rust crate manifest
 ├── MODULE.bazel       # Bazel module configuration (Bzlmod)
 ├── WORKSPACE          # Bazel workspace configuration
 ├── src/
@@ -13,19 +14,21 @@ This project demonstrates how to create C++ libraries that can be called from Ru
 │   │   ├── BUILD      # Bazel build file for C++ library
 │   │   ├── math.h     # C++ header file
 │   │   └── math.cc    # C++ implementation
-│   └── rust/          # Rust bindings
+│   └── rust/          # Rust crate
 │       ├── BUILD      # Bazel build file for Rust library
-│       └── math_bindings.rs  # Rust FFI bindings
+│       └── lib.rs     # Rust library implementation
 ```
 
 ## Features
 
-The math library provides the following operations:
+The crate provides the following operations:
 - Addition (`add`)
 - Subtraction (`sub`)
 - Multiplication (`mul`)
 - Division (`div`)
 - Collatz sequence calculation (`collatz`)
+
+All operations use `f64` (double precision) numbers.
 
 ## Prerequisites
 
@@ -44,15 +47,26 @@ bazel build //...
 
 To run the tests:
 ```bash
-bazel test //src/rust:math_bindings_test
+bazel test //src/rust:bazel_math_test
 ```
 
 ## Usage
 
-To use the math library in your Rust code:
+### As a Bazel Dependency
 
+1. Add the dependency to your `MODULE.bazel`:
+```python
+bazel_dep(name = "bazel_math", version = "0.1.0")
+```
+
+2. Add the dependency to your `BUILD` file:
+```python
+deps = ["@bazel_math//src/rust:bazel_math"]
+```
+
+3. Use in your Rust code:
 ```rust
-use math_bindings::{add, sub, mul, div, collatz};
+use bazel_math::{add, sub, mul, div, collatz};
 
 fn main() {
     let sum = add(5.0, 3.0);     // Returns 8.0
@@ -63,20 +77,21 @@ fn main() {
 }
 ```
 
-## Adding to Your Project
+### As a Cargo Dependency
 
-To use this library in your Bazel project:
-
-1. Add the dependency to your `MODULE.bazel`:
-```python
-bazel_dep(name = "bazel_bindings", version = "0.1.0")
+Add this to your `Cargo.toml`:
+```toml
+[dependencies]
+bazel_math = "0.1.0"
 ```
 
-2. Add the dependency to your `BUILD` file:
-```python
-deps = ["@bazel_bindings//src/rust:math_bindings"]
+## Documentation
+
+Documentation with examples is available in the Rust source code. You can generate the documentation with:
+```bash
+cargo doc --no-deps --open
 ```
 
 ## License
 
-[Insert your chosen license here]
+MIT

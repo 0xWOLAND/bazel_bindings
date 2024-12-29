@@ -1,4 +1,4 @@
-#include "src/math/math.h"
+#include "math.h"
 
 extern "C" {
     double math_add(double a, double b) {
