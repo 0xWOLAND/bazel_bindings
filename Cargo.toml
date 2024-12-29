@@ -1,0 +1,12 @@
+[package]
+name = "bazel_math"
+version = "0.1.0"
+edition = "2021"
+description = "A Rust crate providing math operations implemented in C++"
+license = "MIT"
+
+[lib]
+name = "bazel_math"
+path = "src/rust/lib.rs"
+
+[dependencies] 
