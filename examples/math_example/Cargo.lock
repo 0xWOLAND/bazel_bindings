@@ -5,6 +5,9 @@ version = 3
 [[package]]
 name = "bazel_math"
 version = "0.1.0"
+dependencies = [
+ "cc",
+]
 
 [[package]]
 name = "cc"
@@ -20,7 +23,6 @@ name = "math_example"
 version = "0.1.0"
 dependencies = [
  "bazel_math",
- "cc",
 ]
 
 [[package]]
