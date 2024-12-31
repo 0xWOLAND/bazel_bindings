@@ -7,9 +7,4 @@ license = "MIT"
 
 [lib]
 name = "bazel_math"
-path = "src/rust/lib.rs"
-
-[dependencies] 
-
-[build-dependencies]
-cc = "1.0" 
+path = "src/lib.rs"
